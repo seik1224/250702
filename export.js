@@ -51,3 +51,61 @@ let img = [
 
 
 */
+
+
+function MakeImg(no){
+  this.no = no;
+  const gallery = document.getElementById('gallery');
+  const imgCr = document.createElement('img');
+
+  // 이미지의 width값 생성
+  let ranNum = parseInt(Math.random() * 10) * 100;
+  while(ranNum < 100 || ranNum > 500){
+    ranNum = parseInt(Math.random() * 10) * 100;
+  }
+
+  // 이미지의 top값 생성
+  let height = document.body.offsetHeight;
+  let ranNum2 = parseInt(Math.random() * 100) * 10;
+
+  while(ranNum2 < 0 || ranNum2 > height - ranNum){
+    ranNum2 = parseInt(Math.random() * 100) * 10;
+  }
+
+  imgCr.src = img[no];
+  imgCr.setAttribute('width', ranNum);
+  imgCr.setAttribute('id', no);
+  imgCr.style.left = `${-ranNum}px`;
+  imgCr.style.top = `${ranNum2}px`;
+
+  gallery.append(imgCr);
+
+}
+
+MakeImg.prototype.zImg = function(z){
+  console.log(this);
+   let img = document.getElementById(this.no);
+   img.style.zIndex = z;
+}
+
+MakeImg.prototype.speedImg = function(speed, time){
+  let img = document.getElementById(this.no);
+  let startStr = img.style.left; // 이미지 초기 left위치
+  console.log(startStr);
+  setTimeout(()=>{
+    setInterval(()=>{
+      // 초기위치 숫자로 가져옴
+      let currentPosition = parseInt(img.style.left);
+      let newPosition =  currentPosition + 1;
+
+      if(newPosition > document.body.offsetWidth){
+        img.style.left = startStr;
+      } else {
+        img.style.left = `${newPosition}px`;
+      }
+    }, speed)
+  }, time)
+}
+
+
+export {MakeImg}
