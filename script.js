@@ -19,17 +19,15 @@ import {MakeImg} from './export.js';
 
 // let div0 = new MakeImg(parseInt(Math.random() * 24) + 1);
 
+
+/*
+
 let div1 = new MakeImg(parseInt(Math.random() * 24) + 1);
 let div2 = new MakeImg(parseInt(Math.random() * 24) + 1);
 let div3 = new MakeImg(parseInt(Math.random() * 24) + 1);
 let div4 = new MakeImg(parseInt(Math.random() * 24) + 1);
 let div5 = new MakeImg(parseInt(Math.random() * 24) + 1);
 let div6 = new MakeImg(parseInt(Math.random() * 24) + 1);
-
-div1.zImg(20);
-div1.speedImg(10, 10);
-/*
-
 
 div1.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
 div1.zImg(parseInt(Math.random()*10));
@@ -43,6 +41,7 @@ div5.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
 div5.zImg(parseInt(Math.random()*10));
 div6.speedImg(parseInt(Math.random()*10),parseInt(Math.random()*10000));
 div6.zImg(parseInt(Math.random()*10));
+
 */
 
 /*
@@ -59,3 +58,34 @@ div6.zImg(parseInt(Math.random()*10));
     5. #bg 클릭시 #bg가 display:none으로 변하고 #detail의 이미지가 없어지게 해보세요.
 
 */
+
+const makeDivs = (n) => {
+    let divs = new Array(n);
+    for(let i=0; i<n; i++){
+        divs[i] = new MakeImg(parseInt(Math.random() * 24) + 1);
+        divs[i].speedImg(
+            parseInt(Math.random()*10),
+            parseInt(Math.random()*10000)
+        )
+        divs[i].zImg(parseInt(Math.random()*10))
+    }
+    return divs;
+}
+
+makeDivs(6);
+
+for(let i=0; i< document.querySelectorAll('#gallery img').length; i++){
+    document.querySelectorAll('#gallery img')[i]
+    .addEventListener('click', function(){
+        const bg = document.getElementById('bg');
+        const imgCr = document.createElement('img'); 
+        const detail = document.getElementById('detail');
+
+        console.log(this.src);
+        imgCr.setAttribute('src', this.src);
+        imgCr.setAttribute('width', this.width);
+        bg.style.display = 'block';
+        detail.style.display = 'block';
+        detail.append(imgCr);
+    })
+}
